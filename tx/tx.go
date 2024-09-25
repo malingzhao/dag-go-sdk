@@ -2,6 +2,7 @@ package tx
 
 import (
 	"crypto/rand"
+	"encoding/json"
 	"fmt"
 	"math/big"
 	"strconv"
@@ -76,6 +77,13 @@ func (tx *Transaction) GetEncoded() string {
 	return builder.String()
 }
 
+func (t *Transaction) EncodeTx() (string, error) {
+	marshal, err := json.Marshal(t)
+	if err != nil {
+		return "", err
+	}
+	return string(marshal), nil
+}
 func (t *Transaction) Sign(privateKey string, unCompressKey string) error {
 	encoded := t.GetEncoded()
 	serializeTx := kryoSerialize(encoded, false)
