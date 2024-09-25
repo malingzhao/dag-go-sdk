@@ -1,4 +1,4 @@
-module dag-go-sdk
+module github.com/malingzhao/dag-go-sdk
 
 go 1.22.1
 
