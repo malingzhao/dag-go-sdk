@@ -3,7 +3,6 @@ package tx
 import (
 	"crypto/rand"
 	"fmt"
-	"log"
 	"math/big"
 	"strconv"
 	"strings"
@@ -79,14 +78,10 @@ func (tx *Transaction) GetEncoded() string {
 
 func (t *Transaction) Sign(privateKey string, unCompressKey string) error {
 	encoded := t.GetEncoded()
-	log.Println("the encoded info is ", encoded)
 	serializeTx := kryoSerialize(encoded, false)
-	log.Println("the serialize tx is ", serializeTx)
 	hash := sha256Hash(serializeTx)
-	log.Println("the  hash is ", hash)
 	s, err := sign(privateKey, hash)
 	if err != nil {
-		log.Println("sign err ", err)
 		return err
 	}
 	if unCompressKey[0:2] == "0x" {

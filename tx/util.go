@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
-	"log"
 )
 
 // uint16ToLowBytes extracts the low byte of each uint16 element and converts to a byte slice.
@@ -82,7 +81,6 @@ func kryoSerialize(msg string, setReferences bool) string {
 	}
 
 	prefix = prefix + ext
-	log.Println("the prefix is ", prefix)
 	coded := hex.EncodeToString([]byte(msg))
 
 	return prefix + coded
@@ -93,7 +91,6 @@ func sign(privateKeyHex string, msg string) (string, error) {
 	// Calculate SHA-512 hash of the message
 	hash := sha512.Sum512([]byte(msg))
 
-	log.Println("the hash is ", hex.EncodeToString(hash[:]))
 	// Decode the private key from hex
 	privKeyBytes, err := hex.DecodeString(privateKeyHex)
 	if err != nil {
